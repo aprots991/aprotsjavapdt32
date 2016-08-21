@@ -1,8 +1,5 @@
 package ru.stqa.pft.sandbox;
 
-/**
- * Created by Molodoy on 21.08.2016.
- */
 public class Point {
 
     public double x;
@@ -12,4 +9,9 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+  public static double distance(Point p1, Point p2) {
+    double a = Math.pow((p1.x - p2.x), 2) - Math.pow((p1.y - p2.y), 2);
+    return Math.sqrt(a);
+  }
 }
