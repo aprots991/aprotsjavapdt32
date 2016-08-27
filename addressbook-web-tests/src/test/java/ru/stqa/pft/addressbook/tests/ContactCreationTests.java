@@ -13,7 +13,7 @@ public class ContactCreationTests extends TestBase {
             "mymail3@myc.ru", "http://myc.ru", "Moscow, Russia Leningradsky st. 45 b. 4 ap. 449", "433",
             "Это длинное примечание на raznich языках"));
     app.getContactHelper().submitContactCreation();
-    app.getNavigationHelper().returnToHomePage();
+    app.getContactHelper().returnToHomePage();
   }
 
 }

@@ -55,4 +55,21 @@ public class ContactHelper extends HelperBase {
   public void acceptContactDeletion() {
     wd.switchTo().alert().accept();
   }
+
+  public void returnToHomePage() {
+    click(By.linkText("home page"));
+  }
+
+  public void modifyFirstContact() {
+    click(By.xpath("//tr[2]/td[8]"));
+    //click(By.xpath("//td/a/img[@title='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
+
+  public void confirmContactDeletion() {
+    isElementPresent(By.xpath("//div[.='Record successful deleted']"));
+  }
 }
