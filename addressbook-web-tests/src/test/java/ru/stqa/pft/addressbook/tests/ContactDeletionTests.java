@@ -6,9 +6,9 @@ public class ContactDeletionTests extends TestBase {
 
   @Test
   public void testContactDeletion() {
-    app.clickByHomeLink();
-    app.selectContact();
-    app.deleteSelectedContact();
+    app.getNavigationHelper().clickByHomeLink();
+    app.getContactHelper().selectContact();
+    app.getContactHelper().deleteSelectedContact();
     //clickByPhpAdressbokLink();
   }
 
