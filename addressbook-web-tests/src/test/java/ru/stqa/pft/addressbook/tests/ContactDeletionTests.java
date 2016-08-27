@@ -9,6 +9,7 @@ public class ContactDeletionTests extends TestBase {
     app.getNavigationHelper().clickByHomeLink();
     app.getContactHelper().selectContact();
     app.getContactHelper().deleteSelectedContact();
+    app.getContactHelper().acceptContactDeletion();
     //clickByPhpAdressbokLink();
   }
 
