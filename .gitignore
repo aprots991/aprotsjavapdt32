@@ -16,3 +16,5 @@ gradle-app.setting
 # ignore .idea\libraries*.xml
 .idea/libraries/*.xml
 
+addressbook-web-tests/chromedriver.exe
+*.exe
