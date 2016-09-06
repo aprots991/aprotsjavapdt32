@@ -38,14 +38,10 @@ public class ContactHelper extends HelperBase {
     type(By.name("notes"), contactData.getNotes());
 
     if (creation) {
-     new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
-  }
-
-  public void gotoAddNewConactPage() {
-    click(By.linkText("add new"));
   }
 
   public void clickByPhpAdressbokLink() {
@@ -73,6 +69,14 @@ public class ContactHelper extends HelperBase {
     //click(By.xpath("//td/a/img[@title='Edit']"));
   }
 
+  public void gotoAddNewContactPage() {
+    if (wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
+            && isElementPresent(By.name("submit"))) {
+      return;
+    }
+    click(By.linkText("add new"));
+  }
+
   public void submitContactModification() {
     click(By.name("update"));
   }
@@ -80,4 +84,16 @@ public class ContactHelper extends HelperBase {
   public void confirmContactDeletion() {
     isElementPresent(By.xpath("//div[.='Record successful deleted']"));
   }
+
+  public void createContact(ContactData contact) {
+    gotoAddNewContactPage();
+    fillContactForm(contact, true);
+    submitContactCreation();
+    returnToHomePage();
+  }
+
+  public boolean isTereAContact() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
 }

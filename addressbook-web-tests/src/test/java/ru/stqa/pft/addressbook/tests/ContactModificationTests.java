@@ -9,8 +9,11 @@ public class ContactModificationTests extends TestBase {
 
   public void testContactModification() {
     app.getNavigationHelper().gotoHomePage();
+    if (!app.getContactHelper().isTereAContact())
+      app.getContactHelper().createContact(new ContactData("John", null, null, null, null, null, null, null, "4955555555",
+              null, null, null, "mymail@myc.ru", null, null, "http://myc.ru", null, null, null));
     app.getContactHelper().modifyFirstContact();
-    app.getContactHelper().fillContactForm(new ContactData("Иван", "П", "Иванов", null, "title1", null,  "company1", "address1", null,
+    app.getContactHelper().fillContactForm(new ContactData("Иван", "П", "Иванов", null, "title1", null, "company1", "address1", null,
             "901900333", null, null, "myedited@myc.ru", null,
             "mymaifl3@myc.ru", "http://mycf.ru", null, null,
             "www"), false);

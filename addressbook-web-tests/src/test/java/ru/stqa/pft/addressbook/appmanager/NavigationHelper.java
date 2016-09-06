@@ -25,7 +25,4 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public void clickByHeader() {
-    click(By.id("header"));
-  }
 }
