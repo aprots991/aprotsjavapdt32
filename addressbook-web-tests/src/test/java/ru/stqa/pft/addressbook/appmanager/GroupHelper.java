@@ -52,6 +52,13 @@ public class GroupHelper extends HelperBase {
   }
 
   public boolean isThereAGroup() {
+    if (! isThereAGroupPage()) {
+      click(By.linkText("groups"));
+    }
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public int getGroupCount() {
+    return wd.findElements(By.name("selected[]")).size();
   }
 }

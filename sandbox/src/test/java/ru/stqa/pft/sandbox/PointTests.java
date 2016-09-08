@@ -15,7 +15,7 @@ public class PointTests {
 
   }
 
-  @Test
+  @Test (enabled = false)
   public void distanceTests1() {
     Point p1 = new Point(3, 3.5);
     Point p2 = new Point(3, 5.5);
