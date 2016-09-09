@@ -38,6 +38,7 @@ public class ContactHelper extends HelperBase {
     type(By.name("notes"), contactData.getNotes());
 
     if (creation) {
+      if (contactData.getGroup() == null) return;
       new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
     } else {
       Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -92,7 +93,7 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public boolean isTereAContact() {
+  public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
 
