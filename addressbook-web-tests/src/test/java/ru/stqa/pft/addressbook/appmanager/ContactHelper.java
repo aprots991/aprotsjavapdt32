@@ -112,7 +112,7 @@ public class ContactHelper extends HelperBase {
     List<ContactData> contacts = new ArrayList<ContactData>();
     int elements = wd.findElements(By.name("entry")).size();
     for (int i = 2; i < (elements + 2); i++) {
-      String id = wd.findElement(By.xpath("//tr[" + i + "]//input")).getAttribute("id");
+      int id = Integer.parseInt(wd.findElement(By.xpath("//tr[" + i + "]//input")).getAttribute("id"));
       String firstName = wd.findElement(By.xpath("//tr[" + i + "]/td[3]")).getText();
       String lastName = wd.findElement(By.xpath("//tr[" + i + "]/td[2]")).getText();
       String address = wd.findElement(By.xpath("//tr[" + i + "]/td[4]")).getText();
