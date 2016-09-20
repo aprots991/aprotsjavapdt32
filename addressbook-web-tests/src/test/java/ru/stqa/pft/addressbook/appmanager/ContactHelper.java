@@ -99,7 +99,22 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
+  public void modifyContact(int index, ContactData contact) {
+    modifyContactByIndex(index);
+    fillContactForm(contact, false);
+    submitContactModification();
+    returnToHomePage();
+  }
+
+  public void deleteContact(int index) {
+    selectContact(index);
+    deleteSelectedContact();
+    acceptContactDeletion();
+    confirmContactDeletion();
+  }
+
   public boolean isThereAContact() {
+    if (! isThereAHomePage()) click(By.linkText("home"));
     return isElementPresent(By.name("selected[]"));
   }
 
@@ -121,4 +136,5 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
+
 }

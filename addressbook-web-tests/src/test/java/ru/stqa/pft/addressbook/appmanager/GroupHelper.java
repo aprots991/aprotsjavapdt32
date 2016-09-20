@@ -55,6 +55,20 @@ public class GroupHelper extends HelperBase {
     returnToGroupPage();
   }
 
+  public void modifyGroup(int index, GroupData group) {
+    selectGroup(index);
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+    returnToGroupPage();
+  }
+
+  public void deleteGroup(int index) {
+    selectGroup(index);
+    deleteSelectedGroup();
+    returnToGroupPage();
+  }
+
   public boolean isThereAGroup() {
     if (! isThereAGroupPage()) {
       click(By.linkText("groups"));
