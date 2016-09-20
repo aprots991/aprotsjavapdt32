@@ -92,21 +92,21 @@ public class ContactHelper extends HelperBase {
     isElementPresent(By.xpath("//div[.='Record successful deleted']"));
   }
 
-  public void createContact(ContactData contact) {
+  public void create(ContactData contact) {
     gotoAddNewContactPage();
     fillContactForm(contact, true);
     submitContactCreation();
     returnToHomePage();
   }
 
-  public void modifyContact(int index, ContactData contact) {
+  public void modify(int index, ContactData contact) {
     modifyContactByIndex(index);
     fillContactForm(contact, false);
     submitContactModification();
     returnToHomePage();
   }
 
-  public void deleteContact(int index) {
+  public void delete(int index) {
     selectContact(index);
     deleteSelectedContact();
     acceptContactDeletion();
@@ -122,7 +122,7 @@ public class ContactHelper extends HelperBase {
     return wd.findElements(By.name("selected[]")).size();
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     int elements = wd.findElements(By.name("entry")).size();
     for (int i = 2; i < (elements + 2); i++) {

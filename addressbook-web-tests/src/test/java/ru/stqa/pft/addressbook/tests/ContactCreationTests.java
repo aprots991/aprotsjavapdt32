@@ -13,23 +13,22 @@ public class ContactCreationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    if (!app.getGroupHelper().isThereAGroup()) {
-      app.getNavigationHelper().gotoGroupsPage();
-      app.getGroupHelper().createGroup(new GroupData("test2", null, null));
+    if (app.group().list().size() == 0) {
+      app.goTo().groupPage();
     }
-    if (!app.getGroupHelper().isThereAGroup()) app.getNavigationHelper().gotoHomePage();
+    if (!app.contact().isThereAContact()) app.goTo().homePage();
 
   }
 
   @Test
   public void testContactCreation() {
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
     ContactData contact = new ContactData("John", null, "Brown", "jho", "title", "test2", "company", "address", "4955555555",
             "901900222", "78985469521", "8-985-254879", "mymail@myc.ru", "mymail2@myc.ru",
             "mymail3@myc.ru", "http://myc.ru", "Moscow, Russia Leningradsky st. 45 b. 4 ap. 449", "433",
             "Это длинное примечание на raznich языках");
-    app.getContactHelper().createContact(contact);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().create(contact);
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), (before.size() + 1));
 
     before.add(contact);
