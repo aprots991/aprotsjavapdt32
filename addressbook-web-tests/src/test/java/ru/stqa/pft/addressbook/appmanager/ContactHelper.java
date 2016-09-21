@@ -84,6 +84,10 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.xpath("//td/a/img[@title='Edit']")).get(index).click();
   }
 
+  public void modifyContactById(int id) {
+    wd.findElement(By.xpath("//input[@id='" + id + "']/../..//img[@title='Edit']")).click();
+  }
+
   public void gotoAddNewContactPage() {
     if (wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
             && isElementPresent(By.name("submit"))) {
@@ -107,8 +111,8 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
-  public void modify(int index, ContactData contact) {
-    modifyContactByIndex(index);
+  public void modify(ContactData contact) {
+    modifyContactById(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
     returnToHomePage();
