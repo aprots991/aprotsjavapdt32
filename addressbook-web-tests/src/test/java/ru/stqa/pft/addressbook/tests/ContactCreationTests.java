@@ -6,15 +6,13 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    if (app.group().list().size() == 0) {
+    if (app.group().all().size() == 0) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test2"));
     }
