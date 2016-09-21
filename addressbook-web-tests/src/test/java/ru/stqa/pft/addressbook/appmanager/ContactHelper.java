@@ -1,14 +1,18 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 
+import com.google.common.hash.HashCode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -58,6 +62,10 @@ public class ContactHelper extends HelperBase {
 
   public void selectContact(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
+  }
+
+  public void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
 
   public void acceptContactDeletion() {
@@ -113,6 +121,13 @@ public class ContactHelper extends HelperBase {
     confirmContactDeletion();
   }
 
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContact();
+    acceptContactDeletion();
+    confirmContactDeletion();
+  }
+
   public boolean isThereAContact() {
     if (! isThereAHomePage()) click(By.linkText("home"));
     return isElementPresent(By.name("selected[]"));
@@ -120,6 +135,19 @@ public class ContactHelper extends HelperBase {
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
+    int elements = wd.findElements(By.name("entry")).size();
+    for (int i = 2; i < (elements + 2); i++) {
+      int id = Integer.parseInt(wd.findElement(By.xpath("//tr[" + i + "]//input")).getAttribute("id"));
+      String firstName = wd.findElement(By.xpath("//tr[" + i + "]/td[3]")).getText();
+      String lastName = wd.findElement(By.xpath("//tr[" + i + "]/td[2]")).getText();
+      String address = wd.findElement(By.xpath("//tr[" + i + "]/td[4]")).getText();
+      contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName).withAddress(address));
+    }
+    return contacts;
   }
 
   public List<ContactData> list() {
