@@ -1,7 +1,5 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -16,9 +14,9 @@ public class ContactPhoneTests extends TestBase {
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-    assertThat(contact.getHomePhone(), equalTo(contactInfoFromEditForm.getHomePhone()));
-    assertThat(contact.getMobilePhone(), equalTo(contactInfoFromEditForm.getMobilePhone()));
-    assertThat(contact.getWorkPhone(), equalTo(contactInfoFromEditForm.getWorkPhone()));
+    assertThat(contact.getHomePhone(), equalTo(app.contact().cleaned(contactInfoFromEditForm.getHomePhone())));
+    assertThat(contact.getMobilePhone(), equalTo(app.contact().cleaned(contactInfoFromEditForm.getMobilePhone())));
+    assertThat(contact.getWorkPhone(), equalTo(app.contact().cleaned(contactInfoFromEditForm.getWorkPhone())));
   }
 
 }

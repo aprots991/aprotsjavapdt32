@@ -136,7 +136,7 @@ public class ContactHelper extends HelperBase {
       String firstName = wd.findElement(By.xpath("//tr[" + i + "]/td[3]")).getText();
       String lastName = wd.findElement(By.xpath("//tr[" + i + "]/td[2]")).getText();
       String address = wd.findElement(By.xpath("//tr[" + i + "]/td[4]")).getText();
-      String[] phones = wd.findElement(By.xpath("//tr[" + i + "]/td[5]")).getText().split("/n");
+      String[] phones = wd.findElement(By.xpath("//tr[" + i + "]/td[6]")).getText().split("\n");
       contactCache.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName)
               .withAddress(address).withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
     }
@@ -161,4 +161,7 @@ public class ContactHelper extends HelperBase {
     List<WebElement> cells =row.findElements(By.tagName("td"));
     cells.get(7).findElement(By.tagName("a")).click();
   }
+   public String cleaned (String phone) {
+     return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+   }
 }
