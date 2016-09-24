@@ -22,6 +22,7 @@ public class ContactData {
   private String phone2;
   private String notes;
   private String allPhones;
+  private String allEmails;
 
   public String getMiddleName() {
     return middleName;
@@ -105,6 +106,10 @@ public class ContactData {
 
   public String getAllPhones() {
     return allPhones;
+  }
+
+  public String getAllEmails() {
+    return allEmails;
   }
 
   public ContactData withId(int id) {
@@ -209,6 +214,11 @@ public class ContactData {
 
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
+    return this;
+  }
+
+  public ContactData withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
     return this;
   }
 

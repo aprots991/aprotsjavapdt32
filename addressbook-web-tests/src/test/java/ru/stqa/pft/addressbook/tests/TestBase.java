@@ -9,6 +9,10 @@ public class TestBase {
 
   protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
 
+  public static String cleaned (String phone) {
+    return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+  }
+
   @BeforeSuite
   public void setUp() throws Exception {
     app.init();
