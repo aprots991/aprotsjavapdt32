@@ -21,11 +21,7 @@ public class ContactData {
   private String address2;
   private String phone2;
   private String notes;
-
-
-  public String getFirstName() {
-    return firstName;
-  }
+  private String allPhones;
 
   public String getMiddleName() {
     return middleName;
@@ -101,6 +97,14 @@ public class ContactData {
 
   public int getId() {
     return id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public String getAllPhones() {
+    return allPhones;
   }
 
   public ContactData withId(int id) {
@@ -200,6 +204,11 @@ public class ContactData {
 
   public ContactData withNotes(String notes) {
     this.notes = notes;
+    return this;
+  }
+
+  public ContactData withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
     return this;
   }
 
