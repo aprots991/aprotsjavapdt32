@@ -28,8 +28,8 @@ public class ContactModificationTests extends TestBase {
             .withTitle("title1").withCompany("company1").withAddress("address1").withMobilePhone("901900333")
             .withEmail("myedited@myc.ru").withEmail3("mymaifl3@myc.ru").withHomepage("http://mycf.ru");
     app.contact().modify(contact);
+    assertEquals(app.contact().count(), before.size());
     Contacts after = app.contact().all();
-    assertEquals(after.size(), before.size());
     assertThat(after, equalTo(before.withModified(modifiedContact, contact)));
   }
 
@@ -44,8 +44,8 @@ public class ContactModificationTests extends TestBase {
     app.contact().fillContactForm(contact, false);
     app.contact().submitContactModification();
     app.contact().returnToHomePage();
+    assertEquals(app.contact().count(), before.size());
     Contacts after = app.contact().all();
-    assertEquals(after.size(), before.size());
     assertThat(after, equalTo(before.withModified(modifiedContact, contact)));
 
   }
