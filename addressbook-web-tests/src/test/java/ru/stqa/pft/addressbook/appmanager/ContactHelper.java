@@ -168,4 +168,23 @@ public class ContactHelper extends HelperBase {
     List<WebElement> cells =row.findElements(By.tagName("td"));
     cells.get(7).findElement(By.tagName("a")).click();
   }
+
+  public ContactData infoFromDetails(ContactData contact) {
+    initContactDetailsById(contact.getId());
+    String allDetails = wd.findElement(By.id("content")).getText();
+    String[] splitBySpace = allDetails.split("\\s");
+    String[] splitByLine = allDetails.split("\\n\\n");
+    String firstname = splitBySpace[0];
+    String lastname = splitBySpace[1];
+    String address = splitByLine[0].replace(lastname, "").replace(firstname, "");
+    String allPhones = splitByLine[1].replaceAll("[-()]", "")
+            .replaceAll("H: ", "").replaceAll("M: ", "").replaceAll("W: ", "").replaceAll(" ", "");
+    String allEmails = splitByLine[2].replaceAll(" \\(.+?\\)", "");
+    return new ContactData().withId(contact.getId()).withFirstName(firstname).withLastName(lastname).withAddress(address)
+            .withAllPhones(allPhones).withAllEmails(allEmails);
+  }
+
+  private void initContactDetailsById(int id) {
+    wd.findElement(By.xpath(String.format("//a[@href='view.php?id=%s']", id))).click();
+  }
 }
