@@ -162,26 +162,32 @@ public class ContactHelper extends HelperBase {
             .withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
   }
 
+  public ContactData infoFromDetails(ContactData contact) {
+    initContactDetailsById(contact.getId());
+    String allDetails = wd.findElement(By.id("content")).getText();
+    String[] splitByLine = allDetails.split("\\n\\n");
+    String nameAndAddress = splitByLine[0];
+    String allPhones = splitByLine[1].replaceAll("[-()]", "")
+            .replaceAll("H: ", "").replaceAll("M: ", "").replaceAll("W: ", "").replaceAll(" ", "");
+    String allEmails = splitByLine[2].replaceAll(" \\(.+?\\)", "");
+    /**String[] splitBySpace = allDetails.split("\\s");
+     String[] splitByLine = allDetails.split("\\n\\n");
+     String firstname = splitBySpace[0];
+     String lastname = splitBySpace[1];
+     String address = splitByLine[0].replace(lastname, "").replace(firstname, "");
+     String allPhones = splitByLine[1].replaceAll("[-()]", "")
+     .replaceAll("H: ", "").replaceAll("M: ", "").replaceAll("W: ", "").replaceAll(" ", "");
+     String allEmails = splitByLine[2].replaceAll(" \\(.+?\\)", "");
+     return new ContactData().withId(contact.getId()).withFirstName(firstname).withLastName(lastname).withAddress(address)
+     .withAllPhones(allPhones).withAllEmails(allEmails);**/
+    return new ContactData().withNameAndAddress(nameAndAddress).withAllPhones(allPhones).withAllEmails(allEmails);
+  }
+
   private void initContactModificationById(int id) {
     WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
     WebElement row = checkbox.findElement(By.xpath("./../.."));
     List<WebElement> cells =row.findElements(By.tagName("td"));
     cells.get(7).findElement(By.tagName("a")).click();
-  }
-
-  public ContactData infoFromDetails(ContactData contact) {
-    initContactDetailsById(contact.getId());
-    String allDetails = wd.findElement(By.id("content")).getText();
-    String[] splitBySpace = allDetails.split("\\s");
-    String[] splitByLine = allDetails.split("\\n\\n");
-    String firstname = splitBySpace[0];
-    String lastname = splitBySpace[1];
-    String address = splitByLine[0].replace(lastname, "").replace(firstname, "");
-    String allPhones = splitByLine[1].replaceAll("[-()]", "")
-            .replaceAll("H: ", "").replaceAll("M: ", "").replaceAll("W: ", "").replaceAll(" ", "");
-    String allEmails = splitByLine[2].replaceAll(" \\(.+?\\)", "");
-    return new ContactData().withId(contact.getId()).withFirstName(firstname).withLastName(lastname).withAddress(address)
-            .withAllPhones(allPhones).withAllEmails(allEmails);
   }
 
   private void initContactDetailsById(int id) {

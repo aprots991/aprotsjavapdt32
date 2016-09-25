@@ -29,18 +29,21 @@ public class ContactDetailsTests extends TestBase {
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromDetails = app.contact().infoFromDetails(contact);
 
-    assertThat(cleaned(contact), equalTo(cleaned(contactInfoFromDetails)));
+    assertThat(mergeContactData(contact), equalTo(mergeContactDetailsData(contactInfoFromDetails)));
   }
 
-  public  String mergeContactData(ContactData contact) {
+  public String mergeContactData(ContactData contact) {
+    String getAllPhones1 = contact.getAllPhones().split("\n")[0];
+    String getAllPhones2 = contact.getAllPhones().split("\n")[1];
+    String getAllPhones3 = contact.getAllPhones().split("\n")[2];
     return Arrays.asList(contact.getFirstName(), contact.getLastName(), contact.getAddress(),
-            contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getAllEmails())
-            .stream().filter((s) -> ! s.equals(""))
-            .map(ContactDetailsTests::cleaned).collect(Collectors.joining("\n"));
+            getAllPhones1, getAllPhones2, getAllPhones3, contact.getAllEmails())
+            .stream().filter((s) -> !(s == null || s.equals(""))).collect(Collectors.joining("\n"));
   }
 
-  public static String cleaned (ContactData contact) {
-    return contact.toString().replaceAll("\\s", "").replaceAll("\n", "");
+  public String mergeContactDetailsData(ContactData contactInfoFromDetails) {
+    return Arrays.asList(contactInfoFromDetails.getNameAndAddress(), contactInfoFromDetails.getAllPhones(), contactInfoFromDetails.getAllEmails())
+            .stream().filter((s) -> !(s == null || s.equals(""))).collect(Collectors.joining("\n"));
   }
 
 }

@@ -24,6 +24,7 @@ public class ContactData {
   private String allPhones;
   private String allEmails;
   private String allDetails;
+  private String nameAndAddress;
 
   public String getMiddleName() {
     return middleName;
@@ -115,6 +116,10 @@ public class ContactData {
 
   public String getAllDetails() {
     return allDetails;
+  }
+
+  public String getNameAndAddress() {
+    return nameAndAddress;
   }
 
   public ContactData withId(int id) {
@@ -229,6 +234,11 @@ public class ContactData {
 
   public ContactData withAllDetails(String allDetails) {
     this.allDetails = allDetails;
+    return this;
+  }
+
+  public ContactData withNameAndAddress(String nameAndAddress) {
+    this.nameAndAddress = nameAndAddress;
     return this;
   }
 
