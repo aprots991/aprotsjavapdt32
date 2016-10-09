@@ -8,7 +8,6 @@ public class ContactData {
   private String middleName;
   private String lastName;
   private String nickName;
-  private File photo;
   private String title;
   private String group;
   private String company;
@@ -28,6 +27,7 @@ public class ContactData {
   private String allEmails;
   private String allDetails;
   private String nameAndAddress;
+  private File photo;
 
   public String getMiddleName() {
     return middleName;

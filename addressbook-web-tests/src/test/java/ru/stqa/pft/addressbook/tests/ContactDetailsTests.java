@@ -36,7 +36,7 @@ public class ContactDetailsTests extends TestBase {
     String getAllPhones1 = contact.getAllPhones().split("\n")[0];
     String getAllPhones2 = contact.getAllPhones().split("\n")[1];
     String getAllPhones3 = contact.getAllPhones().split("\n")[2];
-    return Arrays.asList(contact.getFirstName(), contact.getLastName(), contact.getAddress(),
+    return Arrays.asList(contact.getLastName(), contact.getFirstName(), contact.getAddress(),
             getAllPhones1, getAllPhones2, getAllPhones3, contact.getAllEmails())
             .stream().filter((s) -> !(s == null || s.equals(""))).collect(Collectors.joining("\n"));
   }
