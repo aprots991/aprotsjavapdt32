@@ -12,12 +12,5 @@
     "address": "Address 1",
     "homePhone": "Hphone 1",
     "email": "E-mail 1"
-  },
-  {
-    "firstName": "Name 2",
-    "lastName": "Lname 2",
-    "address": "Address 2",
-    "homePhone": "Hphone 2",
-    "email": "E-mail 2"
   }
 ]

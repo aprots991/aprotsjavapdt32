@@ -13,8 +13,8 @@ public class ContactModificationTests extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions() {
-    if (!app.contact().isThereAHomePage()) app.goTo().homePage();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0) {
+      if (!app.contact().isThereAHomePage()) app.goTo().homePage();
       app.contact().create(new ContactData().withLastName("John").withHomePhone("4955555555")
               .withEmail2("mymail@myc.ru").withHomepage("http://myc.ru"));
     }
@@ -22,14 +22,14 @@ public class ContactModificationTests extends TestBase {
 
   @Test
   public void testContactModificationByIndex() {
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("Иван").withLastName("Иванов")
-            .withTitle("title1").withCompany("company1").withAddress("address1").withMobilePhone("901900333")
+            .withTitle("title1").withCompany("company1").withAddress("address1").withHomePhone("901900333").withMobilePhone("901900333")
             .withEmail("myedited@myc.ru").withEmail3("mymaifl3@myc.ru").withHomepage("http://mycf.ru");
     app.contact().modify(contact);
     assertEquals(app.contact().count(), before.size());
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.withModified(modifiedContact, contact)));
   }
 

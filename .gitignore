@@ -19,3 +19,6 @@ gradle-app.setting
 addressbook-web-tests/chromedriver.exe
 *.exe
 *.log
+.idea/dictionaries/Molodoy.xml
+addressbook-web-tests/src/test/resources/1.txt
+addressbook-web-tests/src/test/resources/2.txt
