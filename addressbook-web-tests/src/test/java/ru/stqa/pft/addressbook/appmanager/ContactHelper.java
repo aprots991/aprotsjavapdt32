@@ -44,12 +44,16 @@ public class ContactHelper extends HelperBase {
     type(By.name("notes"), contactData.getNotes());
 
     if (creation) {
-      if (contactData.getGroup() == null) return;
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-    } else {
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
+      if (contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(String.valueOf(contactData.getGroups()
+                .iterator().next().getName()));
+        System.out.println("group name: " + contactData.getGroups().iterator().next().getName()
+                + " group id: " + contactData.getGroups().iterator().next().getId());
+      } else
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+      }
     }
-  }
 
   public void deleteSelectedContact() {
     click(By.xpath("//div/input[@value='Delete']"));

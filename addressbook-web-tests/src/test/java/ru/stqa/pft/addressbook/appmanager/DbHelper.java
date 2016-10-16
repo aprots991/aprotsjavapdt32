@@ -41,6 +41,15 @@ public class DbHelper {
     return new Contacts(result);
   }
 
+  public void getGroups(Contacts contacts) {
+    for (ContactData contact : contacts) {
+      //ContactData contact1 = contact.getGroups();
+      //List<ContactData> result = contact.getGroups();
+      System.out.println(contact.getGroups());
+    }
+    //return new Contacts(result);
+  }
+
   public Object lastAddedContact() {
     Session session = sessionFactory.openSession();
     session.beginTransaction();

@@ -6,6 +6,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -111,8 +113,10 @@ public class ContactData {
   private String photo;
 
   @Expose
-  @Transient
-  private String group;
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Transient
   private String allPhones;
@@ -125,6 +129,9 @@ public class ContactData {
 
   @Transient
   private String nameAndAddress;
+
+  public ContactData() {
+  }
 
 
   public String getMiddleName() {
@@ -211,7 +218,8 @@ public class ContactData {
     if (mobilePhone != null ? !mobilePhone.equals(that.mobilePhone) : that.mobilePhone != null) return false;
     if (email != null ? !email.equals(that.email) : that.email != null) return false;
     if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-    return homepage != null ? homepage.equals(that.homepage) : that.homepage == null;
+    if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
+    return groups != null ? groups.equals(that.groups) : that.groups == null;
 
   }
 
@@ -227,11 +235,8 @@ public class ContactData {
     result = 31 * result + (email != null ? email.hashCode() : 0);
     result = 31 * result + (email3 != null ? email3.hashCode() : 0);
     result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
+    result = 31 * result + (groups != null ? groups.hashCode() : 0);
     return result;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   public int getId() {
@@ -266,6 +271,10 @@ public class ContactData {
     return null;
   }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
+
   public ContactData withId(int id) {
     this.id = id;
     return this;
@@ -293,11 +302,6 @@ public class ContactData {
 
   public ContactData withTitle(String title) {
     this.title = title;
-    return this;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
     return this;
   }
 
@@ -391,15 +395,30 @@ public class ContactData {
     return this;
   }
 
+  public ContactData withGroup(Set<GroupData> group) {
+    this.groups = group;
+    return this;
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
+
   @Override
   public String toString() {
     return "ContactData{" +
             "id=" + id +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
+            ", title='" + title + '\'' +
             ", address='" + address + '\'' +
             ", homePhone='" + homePhone + '\'' +
+            ", mobilePhone='" + mobilePhone + '\'' +
             ", email='" + email + '\'' +
+            ", email3='" + email3 + '\'' +
+            ", homepage='" + homepage + '\'' +
+            ", groups=" + groups +
             '}';
   }
 
