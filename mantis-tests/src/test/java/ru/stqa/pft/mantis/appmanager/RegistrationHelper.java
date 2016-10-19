@@ -24,4 +24,19 @@ public class RegistrationHelper extends HelperBase {
     type(By.name("password_confirm"), password);
     click(By.cssSelector("input[value='Изменить учетную запись'"));
   }
+
+  public void loginByAdmin() {
+    wd.get(app.getProperty("web.baseUrl"));
+    type(By.name("username"), app.getProperty("web.adminLogin"));
+    type(By.name("password"), app.getProperty("web.adminPassword"));
+    click(By.cssSelector("input[value='Войти']"));
+  }
+
+  public void changePassword(String adminPasswordNew) {
+    type(By.name("password_current"), app.getProperty("web.adminPassword"));
+    type(By.name("password"), adminPasswordNew);
+    type(By.name("password_confirm"), adminPasswordNew);
+    click(By.cssSelector("input[value='Изменить учетную запись']"));
+    closeAlertAndGetItsText();
+  }
 }

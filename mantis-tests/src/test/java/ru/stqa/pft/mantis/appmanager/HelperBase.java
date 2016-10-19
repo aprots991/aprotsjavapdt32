@@ -1,9 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 import java.io.File;
 
@@ -22,18 +19,13 @@ public class HelperBase {
 
   protected void type(By locator, String text) {
     click(locator);
-    if (text != null) {
-      String existingText = wd.findElement(locator).getAttribute("value");
-      if (!text.equals(existingText)) {
-        wd.findElement(locator).clear();
-        wd.findElement(locator).sendKeys(text);
-      }
-    }
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
   protected void attach(By locator, File file) {
     if (file != null) {
-        wd.findElement(locator).sendKeys(file.getAbsolutePath());
+      wd.findElement(locator).sendKeys(file.getAbsolutePath());
     }
   }
 
@@ -55,15 +47,20 @@ public class HelperBase {
     }
   }
 
-  public boolean isThereAGroupPage() {
-    return (isElementPresent(By.tagName("h1"))
-            && wd.findElement(By.tagName("h1")).getText().equals("Groups")
-            && isElementPresent(By.name("new")));
-  }
+  public String closeAlertAndGetItsText() {
+    try {
+      Alert alert = wd.switchTo().alert();
+      String alertText = alert.getText();
+      if (app.acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      app.acceptNextAlert = true;
 
-  public boolean isThereAHomePage() {
-    return (isElementPresent(By.tagName("strong"))
-            && wd.findElement(By.tagName("strong")).getText().equals("Number of results:")
-            && isElementPresent(By.name("add")));
+    }
+
   }
 }
